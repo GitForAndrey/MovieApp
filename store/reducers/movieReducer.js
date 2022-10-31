@@ -65,6 +65,12 @@ const movieReducer = (state = initialState, action) => {
         movies: [],
       };
     }
+    case 'RESET_ERROR': {
+      return {
+        ...state,
+        error: '',
+      };
+    }
 
     default:
       return state;

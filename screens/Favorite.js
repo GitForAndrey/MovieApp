@@ -4,11 +4,13 @@ import {useSelector} from 'react-redux';
 import {MovieCard} from '../components/MovieCard';
 import {Search} from '../components/Search';
 import {EmptySearch} from '../components/EmptySearch';
+import {ErrorSnackBar} from '../components/ErrorSnackBar';
 
 //favorites page where movies are displayed and filtered
 const Favorite = () => {
   const favorites = useSelector(state => state.movie.favorites);
   const status = useSelector(state => state.movie.statusFavorites);
+  const error = useSelector(state => state.movie.error);
   const [search, setSearch] = useState('');
   const [data, setData] = useState(favorites);
 
@@ -36,6 +38,8 @@ const Favorite = () => {
   };
   return (
     <View style={{flex: 1}}>
+      {/* error component will display an error in case of data loading error */}
+      <ErrorSnackBar isError={!!error} text={error} />
       <Search handleSearch={handleSearch} value={search} />
       {/* check for an empty array of movies and no loading to display the component EmptySearch*/}
       {data.length === 0 && status != 'loading' ? (
